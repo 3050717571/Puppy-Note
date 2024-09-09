@@ -18,7 +18,7 @@ html,body{
 background-repeat: no-repeat;
 background-size: cover;
 background-position: center;
-flex: 0.5;
+flex: 0.1;
 padding: 10px;
 margin: 10px;
 border-radius: 25%;
@@ -36,5 +36,5 @@ cursor: pointer;
 }
 
 .container>.active{
-    flex:5;
+    flex:15;
 }
