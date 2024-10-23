@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+    <script src="vue.js"></script>
+    <style>
+        body,html{
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(146, 146, 148);
+        }
+        #app{
+            width: 600px;
+            height: 700px;
+            background-color: rgb(71, 101, 128);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 
+                0px 5px 5px rgba(0, 0, 0, 0.1), /* 第1层阴影 */
+                0px 10px 10px rgba(0, 0, 0, 0.1), /* 第2层阴影 */
+                0px 15px 15px rgba(0, 0, 0, 0.1), /* 第3层阴影 */
+                0px 20px 20px rgba(0, 0, 0, 0.1), /* 第4层阴影 */
+                0px 25px 25px rgba(0, 0, 0, 0.1); /* 第5层阴影 */
+        }
+        .header h1{
+            color: #b36666;
+            font-size: 65px ;
+            text-align: center;
+        }
+        .new-todo{
+            width: 200px;
+            height: 30px;
+            padding:0 10px;
+            margin:0 10px;
+            border: 5px solid rgb(255, 255, 255);
+            border-radius: 20px;
+            color: #000000;
+            font-size: 15px;
+            position: relative;
+            left: 15px;
+            outline: none;
+        }
+
+        .add{
+            width: 80px;
+            height: 40px;
+            margin:0 ;
+            border: 1px solid rgb(109, 108, 108);
+            border-radius: 20px;
+            color: #64b4ff;
+            font-weight: bold;
+            font-size: 15px;
+            background-color: pink;
+            position: relative;
+            left: 20px;
+            outline:none;
+        }
+
+        .main .todo-list{
+            list-style-type: none;
+        }
+
+        .todo{
+            border-bottom: 1px solid rgb(110, 109, 109);
+            padding: 15px;
+            width: 320px;
+            height: 25px;
+            color: #ccc;
+            font-size: 20px;
+        }
+        .index{
+            margin-right: 20px;
+        }
+        .destroy{
+          float: right;
+          width: 20px;
+          height: 20px;
+          border-radius: 20px;
+          background-color: #69b7ff;
+          border: 1px solid white;
+        }
+       .footer{
+        width: 340px;
+        position: relative;
+        font-weight: 100;
+        font-size: 15px;
+        margin-top: -15px;
+        right: -25px;
+        color: #b1b1b1;
+       }
+       .todo-count{
+        float: left;
+       }
+       .clear-completed{
+        float: right;
+        border: none;
+        background-color: transparent;
+        color: #a1a1a1;
+    }
+    </style>
+</head>
+<body>
+    <section id="app">
+        <header class="header">
+            <h1>小🐕记事本</h1>
+            <input type="text" placeholder="请输入任务" class="new-todo" v-model="todoname">
+            <button class="add" @click="add">添加任务</button>
+        </header>
+        <!-- 列表区域 -->
+        <section class="main">
+            <ul class="todo-list">
+                <li class="todo" v-for="(item,index) in list" key="item.id">
+                    <div class="view">
+                        <span class="index">{{index+1}}.</span> <label for="">{{item.name}}</label>
+                        <button class="destroy" @click="del(item.id)"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="footer" v-show="list.length>0">
+            <span class="todo-count">合计:<strong> {{list.length}}</strong></span>
+            <button class="clear-completed" @click="clear">
+                清空任务
+            </button>
+        </footer>
+    </section>
+
+
+    <script>
+        //添加功能：
+        //1.通过v-model绑定输入框，实时获取表单元素内容
+        //2.点击按钮，进行新增unshift
+        const app = new Vue({
+            el:'#app',
+            data:{
+                todoname:"",
+                list:[
+                    {id:1, name: '游泳2小时'},
+                    {id:2, name: '跑步1公里'},
+                    {id:3, name: '走路50分钟'},
+                    {id:4, name: '骑车2个小时'},
+                ],
+              
+            },
+            methods:{
+                del(id){
+                    // console.log(id)
+                    this.list =this.list.filter(item=>item.id !=id)
+                },
+                add(){
+                    // this.list.unshift({
+                    //     id:+new Data(),
+                    //     name:this.todoname,
+                    // })
+                    // console.log('1')
+                    if(this.todoname.trim() === ''){
+                        alert('请输入任务名称')
+                        return
+                    }
+                    this.list.push({
+                        id:this.list.length+1,
+                        name:this.todoname,
+                    })
+                    this.todoname =""
+                    // console.log(this.list)
+                },
+                clear(){
+                    this.list =[]
+                }
+            }
+        })
+    </script>
+</body>
+</html>
