@@ -15,7 +15,7 @@
             align-items: center;
             background-color: rgb(146, 146, 148);
         }
-        #app{
+        #apt{
             width: 600px;
             height: 700px;
             background-color: rgb(71, 101, 128);
@@ -108,7 +108,7 @@
     </style>
 </head>
 <body>
-    <section id="app">
+    <section id="apt">
         <header class="header">
             <h1>小🐶记事本</h1>
             <input type="text" placeholder="请输入任务" class="new-todo" v-model="todoname">
@@ -139,8 +139,8 @@
         //添加功能：
         //1.通过v-model绑定输入框，实时获取表单元素内容
         //2.点击按钮，进行新增unshift
-        const app = new Vue({
-            el:'#app',
+        const apt = new Vue({
+            el:'#apt',
             data:{
                 todoname:"",
                 list:[
@@ -179,6 +179,8 @@
         })
         
     </script>
+
+    
 </body>
 
 </html>
